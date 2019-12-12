@@ -22,7 +22,7 @@ function! macdict#consul(opt, arg)
     return
   endif
   call popup_close(s:last_popup_window)
-  let result = system s:macdict_prg a:opt a:arg
+  let result = system(expand('s:macdict_prg a:opt a:arg'))
   echo result
   " let s:last_popup_window = popup_create(s:result, {})
 endfunction
