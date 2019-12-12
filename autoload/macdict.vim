@@ -13,29 +13,23 @@ if !exists('g:macdict_window_size')
   let g:macdict_window_size = 'botright 8split'
 endif
 
+let s:last_popup_window = 0
+
 " consult mac internal dictionaries
 function! macdict#consul(opt, arg)
   if !has("mac")
     echo "Sorry. macdict.vim is only for Mac OSX User."
     return
   endif
-  let winnum = bufwinnr(bufnr('MacDictBuffer'))
-  if winnum != -1
-    if winnum != bufwinnr('%')
-      silent exec ":normal \<C-w>".winnum."w"
-    endif
-  else
-    silent exec g:macdict_window_size.' MacDictBuffer'
-  endif
-  silent exec ":normal ggdG"
+  call popup_close(s:last_popup_window)
   exec s:macdict_prg a:opt a:arg
-  setlocal buftype=popup wrap textwidth=0 noswapfile nonumber
-  silent exec ":normal ggdd"
+  let s:last_popup_window = popup_create(s:macdict_prg, {})
 endfunction
 
 " close output
 function! macdict#close()
-  silent exec ":bdelete MacDictBuffer"
+  " silent exec ":bdelete MacDictBuffer"
+  call popup_close(s:last_popup_window)
 endfunction
 
 let &cpo = s:save_cpo
