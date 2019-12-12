@@ -29,7 +29,7 @@ function! macdict#consul(opt, arg)
   endif
   silent exec ":normal ggdG"
   exec s:macdict_prg a:opt a:arg
-  setlocal buftype=nofile wrap textwidth=0 noswapfile nonumber
+  setlocal buftype=popup wrap textwidth=0 noswapfile nonumber
   silent exec ":normal ggdd"
 endfunction
 
