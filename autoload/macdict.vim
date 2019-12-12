@@ -22,13 +22,12 @@ function! macdict#consul(opt, arg)
     return
   endif
   call popup_close(s:last_popup_window)
-  exec s:macdict_prg a:opt a:arg
-  let s:last_popup_window = popup_create(s:macdict_prg, {})
+  let s:result = exec s:macdict_prg a:opt a:arg
+  let s:last_popup_window = popup_create(s:result, {})
 endfunction
 
 " close output
 function! macdict#close()
-  " silent exec ":bdelete MacDictBuffer"
   call popup_close(s:last_popup_window)
 endfunction
 
